@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.url;
-
+//*
 public class ShareLaneRegistrationTest {
     public static final String URL = "https://sharelane.com/";
     public static final String SIGN_UP_URL = "https://sharelane.com/cgi-bin/register.py";
