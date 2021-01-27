@@ -5,26 +5,26 @@ import org.testng.annotations.Test;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.url;
 
-public class ShareLaneRegistrationTests {
-    public static final String url = "https://sharelane.com/";
-    public static final String signUpUrl = "https://sharelane.com/cgi-bin/register.py";
-    public static final String correctZipCode = "12345";
-    public static final String incorrectZipCode = "1234";
+public class ShareLaneRegistrationTest {
+    public static final String URL = "https://sharelane.com/";
+    public static final String SIGN_UP_URL = "https://sharelane.com/cgi-bin/register.py";
+    public static final String CORRECT_ZIPCODE = "12345";
+    public static final String INCORRECT_ZIPCODE = "1234";
 
     @Test
     public void goingThrowTheFLowToRegistrationPage() {
-        open(url);
+        open(URL);
         $(By.xpath("//*[text()='ENTER']")).click();
         $(By.xpath("//*[text()='Sign up']")).click();
         String currentUrl = url();
-        Assert.assertEquals(currentUrl, signUpUrl);
+        Assert.assertEquals(currentUrl, SIGN_UP_URL);
         Selenide.closeWebDriver();
     }
 
     @Test
     public void linkShouldEndsWithEnteredZipcodeAfterContinue() {
-        open(signUpUrl);
-        $(By.name("zip_code")).sendKeys(correctZipCode);
+        open(SIGN_UP_URL);
+        $(By.name("zip_code")).sendKeys(CORRECT_ZIPCODE);
         $(By.cssSelector("[value=Continue]")).click();
         String expectedUrl = "https://sharelane.com/cgi-bin/register.py?page=1&zip_code=12345";
         Assert.assertEquals(expectedUrl, url());
@@ -33,8 +33,8 @@ public class ShareLaneRegistrationTests {
 
     @Test
     public void errorMessageShouldBeDisplayedWith_4_digitsInZipCodeField() {
-        open(signUpUrl);
-        $(By.name("zip_code")).sendKeys(incorrectZipCode);
+        open(SIGN_UP_URL);
+        $(By.name("zip_code")).sendKeys(INCORRECT_ZIPCODE);
         $(By.cssSelector("[value=Continue]")).click();
         String errorMessage = By.cssSelector(".error_message").toString();
         Assert.assertEquals(errorMessage, By.cssSelector(".error_message").toString());
@@ -43,7 +43,7 @@ public class ShareLaneRegistrationTests {
 
     @Test
     public void zipCodeWithEmptyFileds_errorMsgShouldBeDisplayed() {
-        open(signUpUrl);
+        open(SIGN_UP_URL);
         $(By.cssSelector("[value=Continue]")).click();
         String errorMessage = By.cssSelector(".error_message").toString();
         Assert.assertEquals(errorMessage, By.cssSelector(".error_message").toString());
@@ -52,8 +52,8 @@ public class ShareLaneRegistrationTests {
 
     @Test
     public void registrationWithEmptyFileds_errorMsgShouldBeDisplayed() {
-        open(signUpUrl);
-        $(By.name("zip_code")).sendKeys(correctZipCode);
+        open(SIGN_UP_URL);
+        $(By.name("zip_code")).sendKeys(CORRECT_ZIPCODE);
         $(By.cssSelector("[value=Continue]")).click();
         $(By.cssSelector("[value=Register]")).click();
         String errorMessage = By.cssSelector(".error_message").toString();
@@ -63,8 +63,8 @@ public class ShareLaneRegistrationTests {
 
     @Test
     public void correctFieldsRegistration() {
-        open(signUpUrl);
-        $(By.name("zip_code")).sendKeys(correctZipCode);
+        open(SIGN_UP_URL);
+        $(By.name("zip_code")).sendKeys(CORRECT_ZIPCODE);
         $(By.cssSelector("[value=Continue]")).click();
         $(By.name("first_name")).sendKeys("Alex");
         $(By.name("last_name")).sendKeys("Petrov");
